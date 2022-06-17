@@ -5,12 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VueJS Jour1</title>
+    <style>
+      .good {background-color: green; color: #fff;}
+      .bad {background-color:red; color: #fff;}
+    </style>
   </head>
   <body>
     <div id="app">
       <p>{{ message }}</p>
       <p>Bonjour je suis {{name}} et j'ai {{age}} ans</p>
-      <p>{{fruits[1]}},{{fruits[2]}}</p>
+      <!-- <p>{{fruits[1]}},{{fruits[2]}}</p>
       <h2>{{book.title}}, {{book['title']}}</h2>
       <p>Années de sortie: {{ book.year }} par {{ book.author }}</p>
       <p>{{11+22*45}}</p>
@@ -21,7 +25,7 @@
       <p v-text="message"></p>
       <section>{{html}}</section>
       <code v-html="html"></code>
-      <a v-bind:href="url" target="_blank">{{ url }}</a>
+      <a v-bind:href="url" target="_blank">{{ url }}</a> -->
     <!-- <img v-bind:src="src" alt=""> -->
       <button v-show="needLove">Click ici</button> <!-- v-show => display none -->
       <button v-if="needLove">premier</button><!-- v-if => element disparait du DOM -->
@@ -34,9 +38,9 @@
         <li v-for="fruit in fruits">{{fruit}}</li>
       </ul>
 
-      <ul>
+      <!-- <ul>
         <li v-for="produit in panier">{{produit.name}} - {{produit.count}} - {{produit.price}}</li>
-      </ul>
+      </ul> -->
 
       <ul>
         <li v-for="produit in panier">
@@ -45,6 +49,30 @@
         </li>
       </ul>
 
+      <!-- v-model -->
+      <p>{{info}}</p>
+      <input type="text" v-model="info">
+      <input type="checkbox" v-model="needLove">
+
+      <!-- events -->
+<div v-if="open">
+  <span v-on:click="open = false">close</span>
+  <p>boite ouverte</p>
+</div>
+<div v-else>
+  <!-- <span v-on:click="open =true">ouvrir la boite</span> -->
+  <span @click="open =true">ouvrir la boite</span>
+
+</div>
+
+<p @click="changeLove()" :class="needLove ? 'good' : 'bad'">{{message}} </p>
+<p @click="changeLove()" :class="{good:needLove, bad:!needLove}">{{message}}</p>
+
+<input type="text" v-model="name">
+<input type="text" v-model="prenom">
+<p>Bonjour {{name}} {{prenom}}</p>
+<p>{{hello}}</p>
+
     </div>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -52,12 +80,15 @@
       const app = Vue.createApp({
         data() {
           return {
+            open:true,
+            info:'',
             url: 'http://www.whatt.fr',
             src:'https://picsum.photos/200/300',
             message: "Hello World !",
             html:'<p>Hello World 2</p>',
             messageOut: "",
-            name: "Samuel", // STRING
+            name: "LANGUET", // STRING
+            prenom:"Samuel",
             age: 44, //Number
             needLove: false, // Bool
             fruits: ["Banane", "Kiwi", "Papaye"], // Array
@@ -74,6 +105,18 @@
             ]
           };
         },
+        computed: {
+          hello(){
+            // return 'Bonjour ' + this.prenom + ' ' + this.name + ', tu as : ' + this.age + ' ans';
+            return `Bonjour ${this.prenom} ${this.name}, tu as ${this.age} ans`
+
+          }
+        },
+        methods: {
+          changeLove() {
+            this.needLove = !this.needLove;
+          }
+        }
       }).mount("#app");
 
       setTimeout(() => {
