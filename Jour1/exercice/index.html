@@ -1,25 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercice VueJS</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cirque Michellus</title>
+    <style>
+        h1 {text-align: center;font-size: 3rem;text-shadow: 1px 1px 2px pink;}
+        .wrap {max-width: 500px;width:100%;margin:0 auto;}
+        input {width:100%;padding: 1rem;}
+    </style>
 </head>
 <body>
     <div id="app">
-        <p>Hello</p>
+        <div class="wrap">
+            <h1>Cirque michellus</h1>
+            <label for="input1">Nombre de Standard (10 euros)</label>
+            <input type="number" id="input1" min="0" v-model="nb_standard">
+            <label for="input2">Nombre de First (30 euros)</label>
+            <input type="number" id="input2" min="0" v-model="nb_first">
+            <label for="input3">Nombre de VIP (70 euros)</label>
+            <input type="number" id="input3" min="0" v-model="nb_vip">
+
+            <p>Total: {{ total }}</p>
+            <p>Nombre de standard: {{ nb_standard }}</p>
+        </div>
+
     </div>
-    
-<script src="https://unpkg.com/vue@3"></script> 
+<script src="https://unpkg.com/vue@3"></script>
 <script>
-    Vue.creatApp({
-        data(){
+    Vue.createApp({
+        data() {
             return {
-                message: 'Hello World',
+                nb_standard: 0,
+                nb_first: 0,
+                nb_vip: 0,
+                price_standard: 10
+            }
+        },
+        computed: {
+            total() {
+                return this.nb_standard * this.price_standard + this.nb_first * 30 + this.nb_vip * 70
             }
         }
     }).mount('#app');
-</script>   
+</script>
 </body>
 </html>
