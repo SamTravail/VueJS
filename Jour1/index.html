@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VueJS Jour1</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{ message }}</p>
+      <p>Bonjour je suis {{name}} et j'ai {{age}} ans</p>
+      <p>{{fruits[1]}},{{fruits[2]}}</p>
+      <h2>{{book.title}}, {{book['title']}}</h2>
+      <p>Années de sortie: {{ book.year }} par {{ book.author }}</p>
+      <p>{{11+22*45}}</p>
+      <p>{{'Michel'.toUpperCase()}}</p>
+      <p>{{message.toUpperCase()}}</p>
+      <p>{{age>43 ? 'Je suis vieux' : 'Je suis jeune'}}</p>
+      <p>{{messageOut}}</p>
+      <p v-text="message"></p>
+      <section>{{html}}</section>
+      <code v-html="html"></code>
+      <a v-bind:href="url" target="_blank">{{ url }}</a>
+    <!-- <img v-bind:src="src" alt=""> -->
+      <button v-show="needLove">Click ici</button> <!-- v-show => display none -->
+      <button v-if="needLove">premier</button><!-- v-if => element disparait du DOM -->
+      <button v-else="needLove">deuxieme</button>
+
+      <button v-if="!needLove">deuxieme</button>
+      
+      <!-- Boucles -->
+      <ul>
+        <li v-for="fruit in fruits">{{fruit}}</li>
+      </ul>
+
+      <ul>
+        <li v-for="produit in panier">{{produit.name}} - {{produit.count}} - {{produit.price}}</li>
+      </ul>
+
+      <ul>
+        <li v-for="produit in panier">
+          <h2>{{produit.name}} x {{ produit.count }}</h2>
+          <p>{{produit.price}}</p>
+        </li>
+      </ul>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            url: 'http://www.whatt.fr',
+            src:'https://picsum.photos/200/300',
+            message: "Hello World !",
+            html:'<p>Hello World 2</p>',
+            messageOut: "",
+            name: "Samuel", // STRING
+            age: 44, //Number
+            needLove: false, // Bool
+            fruits: ["Banane", "Kiwi", "Papaye"], // Array
+            book: {
+              title: "Javascript tuto",
+              year: 2021,
+              author: "Michel",
+            },
+            panier: [
+              {name: 'viande', count: 3, price: 4.45},
+              {name: 'fromage', count: 2, price: 24.25},
+              {name: 'beurre', count: 1, price: 8.60},
+              {name: 'patate', count: 100, price: 0.45},
+            ]
+          };
+        },
+      }).mount("#app");
+
+      setTimeout(() => {
+        //app.message ='au revoir';
+        app.messageOut = "Au revoir";
+        app.age = 22;
+        app.fruits.push('fraise')
+        //console.log(app.fruits);
+        app.scr = 'https://picsum.photos/200/300';
+        app.needLove = true;
+      }, 2000);
+    </script>
+  </body>
+</html>
