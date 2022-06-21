@@ -23,7 +23,20 @@
             <input type="number" id="input3" min="0" v-model="nb_vip">
 
             <p>Total: {{ total }}</p>
-            <p>Nombre de standard: {{ nb_standard }}</p>
+            <p>megaTotal: {{ megaTotal }}</p>
+
+            <button @click="nextClient" v-if="total > 0">Client suivant</button>
+
+            <section id="commandes">
+                <div v-for="commande in commandes">
+                    <p>Total: {{ commande.total }}</p>
+                    <p v-if="commande.standard > 0">Nbre de standard: {{ commande.standard }}</p>
+                    <p v-if="commande.first > 0">Nbre de first: {{ commande.first }}</p>
+                    <p v-if="commande.vip > 0">Nbre de vip: {{ commande.vip }}</p>
+                    <hr>
+                </div>
+            </section>
+
         </div>
 
     </div>
@@ -35,12 +48,36 @@
                 nb_standard: 0,
                 nb_first: 0,
                 nb_vip: 0,
-                price_standard: 10
+                price_standard: 10,
+                commandes: []
+            }
+        },
+        methods: {
+            nextClient() {
+                if(this.total > 0) {
+                    let newCommande = {
+                        standard: this.nb_standard,
+                        first: this.nb_first,
+                        vip: this.nb_vip,
+                        total: this.total
+                    };
+                    this.commandes.unshift(newCommande);
+                    this.nb_standard = 0;
+                    this.nb_first = 0;
+                    this.nb_vip = 0;
+                }
             }
         },
         computed: {
             total() {
                 return this.nb_standard * this.price_standard + this.nb_first * 30 + this.nb_vip * 70
+            },
+            megaTotal() {
+                let t = 0;
+                this.commandes.forEach(c => {
+                    t += c.total
+                })
+                return t;
             }
         }
     }).mount('#app');

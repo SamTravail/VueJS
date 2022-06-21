@@ -1,0 +1,9 @@
+* {
+    padding:0; margin: 0;
+    box-sizing: border-box;
+}
+
+.wrap {max-width: 700px;width: 100%;margin: 0 auto;}
+
+.red {background-color: red; color: #fff; font-style: italic;}
+.green {background-color: green; color: #fff;font-weight: bold; font-size: 2rem;}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VueJS Jour1</title>
+    <link rel="stylesheet" href="./asset/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="wrap">
+        <p>{{message}}</p>
+        <div v-on:click="goclick()" @mouseenter="goMouse">click ici !</div>
+        <p>{{counter}}</p>
+        <button @click="increase(1,$event)">Ajouter 1</button>
+        <button @click="increase(3,$event)">Ajouter 3</button>
+        <button @click="increase(5,$event)">Ajouter 5</button>
+
+        <button @click="decrease(1,$event)">Enlever 1</button>
+        <button @click="decrease(3,$event)">Enlever 3</button>
+        <button @click="decrease(5,$event)">Enlever 5</button>
+
+        <p>
+          <input type="text" @input="goInput" />
+        </p>
+        <p @mousemove="updateCoordonnee" :class="color ? 'green': 'red'">
+            Coordonnées : {{x}} : {{y}}
+        </p>
+        <div @click="modifEvent1('Boite parent')">
+            <h3 @click.stop="modifEvent1('boite enfant')">Modificateur events</h3>
+        </div>
+
+        <form @submit.prevent="submitForm">
+            <input type="text" @keyup.enter="changeColor">
+            <input type="text" @keyup.down="changeColor">
+            <input type="submit">
+        </form>
+<a @click.prevent="changeColor" href="https://whatt.fr">Go !</a>
+        <!-- 
+            Modificateurs d'evenements
+            .stop => event.stopPropagation()
+            .prevent => PreventDefault()
+            .once => pour déclencher l'evenement qu'une seule fois
+            .capture
+         -->
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./asset/js/script.js"></script>
+  </body>
+</html>

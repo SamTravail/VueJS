@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jour2 VueJS 4 - Boucles et conditions</title>
+    <link rel="stylesheet" href="asset/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div class="wrap">
+        <ul>
+          <li v-for="(lang, index) in languages" :key="lang">
+            i:{{index}}: {{lang}}
+          </li>
+        </ul>
+      </div> -->
+
+      <section class="authors">
+        <div class="wrap">
+          <div class="card" v-for="(auth, index) in authors" :key="auth">
+            <h2>{{auth.nom}}</h2>
+            <p>{{auth.lang}} en {{auth.year}}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="asset/js/script.js"></script>
+  </body>
+</html>
